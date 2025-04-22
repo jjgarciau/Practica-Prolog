@@ -1,4 +1,4 @@
-%Vehicle catalog - Part 1 
+%Part 1 - Vehicle catalog
 vehicle(toyota, corolla, sedan, 20000, 2021).
 vehicle(toyota, rav4, suv, 28000, 2022).
 vehicle(toyota, camry, sedan, 25000, 2023).
@@ -33,7 +33,7 @@ meet_budget(Reference, BudgetMax) :-
 vehicles_by_brand(Brand, Models) :-
     bagof(Reference, vehicle(Brand, Reference, _, _, _), Models).
 
-%Example of use: vehicles_by_brand(Brand, Models).
+%Example of use: vehicles_by_brand(toyota, Models).
 
 % Generate report
 generate_report(Brand, Type, Budget, Result) :-

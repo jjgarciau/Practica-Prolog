@@ -46,7 +46,7 @@ vehicles_by_brand(Marca, Modelos)
 
 - **Descripción**: Obtiene todos los modelos disponibles de una marca específica.
 
-- **Ejemplo**: `vehicles_by_brand("Toyota", Modelos)` lista todos los modelos Toyota.
+- **Ejemplo**: `vehicles_by_brand(toyota, Modelos)` lista todos los modelos Toyota.
 
 ### 3. Generación de Reportes: `generate_report/4`
 
@@ -83,7 +83,7 @@ generate_report(Marca, Tipo, Presupuesto, Resultados)
 
 ```prolog
 
-?- generate_report("Toyota", "SUV", 30000, Resultados).
+?- generate_report(toyota, suv, 30000, Resultados).
 
 % Encuentra SUVs Toyota con precio ≤ $30,000
 
@@ -103,8 +103,8 @@ vehicle(Marca, Modelo, Tipo, Precio, Año).
 
 ```prolog
 
-vehicle("Toyota", "Corolla", "sedán", 22000, 2022).
+vehicle(toyota, corolla, sedan, 22000, 2022).
 
-vehicle("Ford", "F-150", "camión", 35000, 2023).
+vehicle(ford, f-150, truck, 35000, 2023).
 
 ```
