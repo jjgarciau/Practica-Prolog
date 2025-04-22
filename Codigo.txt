@@ -1,0 +1,79 @@
+%Vehicle catalog - Part 1 
+vehicle(toyota, corolla, sedan, 20000, 2021).
+vehicle(toyota, rav4, suv, 28000, 2022).
+vehicle(toyota, camry, sedan, 25000, 2023).
+vehicle(ford, mustang, sport, 45000, 2023).
+vehicle(ford, f150, truck, 35000, 2022).
+vehicle(ford, escape, suv, 27000, 2023).
+vehicle(bmw, x5, suv, 60000, 2021).
+vehicle(bmw, series3, sedan, 42000, 2023).
+vehicle(bmw, x3, suv, 52000, 2022).
+vehicle(honda, civic, sedan, 22000, 2022).
+vehicle(honda, crv, suv, 27000, 2023).
+vehicle(honda, accord, sedan, 26000, 2021).
+vehicle(chevrolet, silverado, truck, 40000, 2022).
+vehicle(chevrolet, malibu, sedan, 24000, 2021).
+vehicle(chevrolet, equinox, suv, 29000, 2023).
+vehicle(nissan, altima, sedan, 24000, 2021).
+vehicle(nissan, rogue, suv, 26000, 2022).
+vehicle(nissan, frontier, truck, 33000, 2023).
+vehicle(audi, a4, sedan, 43000, 2023).
+vehicle(audi, q5, suv, 50000, 2022).
+vehicle(audi, a3, sedan, 39000, 2021).
+
+% Part 2 - Basic queries and filters 
+
+meet_budget(Reference, BudgetMax) :-
+	vehicle(_, Reference, _, Price, _),
+	Price =< BudgetMax. 
+
+%Example of use: meet_budget(Ref, 25000).
+
+%List of vehicles by brand
+vehicles_by_brand(Brand, Models) :-
+    bagof(Reference, vehicle(Brand, Reference, _, _, _), Models).
+
+%Example of use: vehicles_by_brand(Brand, Models).
+
+% Generate report
+generate_report(Brand, Type, Budget, Result) :-
+    findall(
+        vehicle(Brand, Ref, Type, Price, Year),
+        (vehicle(Brand, Ref, Type, Price, Year), Price =< Budget),
+        FilteredVehicles
+    ),
+    total_value(FilteredVehicles, Total),
+    Total =< 500000,
+    Result = FilteredVehicles.
+
+% Example: generate_report(toyota, sedan, 30000, Result).
+
+% total value generate report
+total_value([], 0).
+total_value([vehicle(_, _, _, Price, _) | Rest], Total) :-
+    total_value(Rest, SubTotal),
+    Total is SubTotal + Price.
+    
+%Test cases
+% Case 1: List all Toyota SUV references priced under $30,000
+% findall(Ref, (Vehicle( toyota, Ref, suv, Price, _), Price < 30000),List).
+
+% Case 2: Show Ford brand vehicles using bagof/3, grouped by type and year.
+% bagof(Year-Type-Ref, vehicle(ford, Ref, Type, _, Year), List).
+
+%Case 3: Calculate the total value of an inventory filtered by type “Sedan” without
+%exceeding $500,000.
+
+test_case_3(Type, MaxBudget, Total, Result) :-
+    findall(
+        vehicle(Brand, Ref, Type, Price, Year),
+        vehicle(Brand, Ref, Type, Price, Year),
+        FilteredVehicles
+    ),
+    total_value(FilteredVehicles, Total),
+    Total =< MaxBudget,
+    Result = FilteredVehicles.
+
+%Use: test_case_3(sedan, 500000, Total, Lista).
+
+
